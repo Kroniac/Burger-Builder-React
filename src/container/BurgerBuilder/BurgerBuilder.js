@@ -23,12 +23,7 @@ class BurgerBuilder extends Component {
     totalPrice: 4,
     purchase: false,
     msg: "Please add some ingredients",
-    label: {
-      salad: "Salad",
-      meat: "Meat",
-      cheese: "Cheese",
-      bacon: "Bacon"
-    }
+    
   };
 
   updatePurchaseState = ingredients => {
@@ -76,7 +71,7 @@ class BurgerBuilder extends Component {
       this.updatePurchaseState(updatedIngredients);
     } else
       this.setState({
-        msg: "No " + this.state.label[type] + " in burger to remove"
+        msg: "No " + type + " in burger to remove"
       });
   };
   render() {

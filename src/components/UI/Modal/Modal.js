@@ -4,7 +4,7 @@ import Backdrop from "../Backdrop/Backdrop";
 import Aux from "../../../hoc/Aux";
 const modal = props => (
   <Aux>
-    <Backdrop show={props.show} />
+    <Backdrop show={props.show} clicked = {props.ordercancel} />
     <div
       className={classes.Modal}
       style={{

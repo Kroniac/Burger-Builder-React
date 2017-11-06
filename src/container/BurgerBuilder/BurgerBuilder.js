@@ -6,10 +6,10 @@ import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/OrderSummary/OrderSummary";
 
 const INGREDIENT_PRICE = {
-  salad: 0.5,
-  cheese: 0.3,
-  bacon: 0.7,
-  meat: 1
+  salad: 5,
+  cheese: 10,
+  bacon: 25,
+  meat: 30
 };
 
 class BurgerBuilder extends Component {

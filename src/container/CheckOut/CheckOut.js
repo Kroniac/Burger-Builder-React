@@ -1,24 +1,24 @@
 import React, { Component } from "react";
 import CheckOutSummary from "../../components/Order/CheckOutSummary/CheckOutSummary";
-
+import ContactData from "./ContactData/ContactData";
+import { Route } from "react-router-dom";
 class CheckOut extends Component {
   state = {
-    ingredients: {
-      cheese: 1,
-      salad: 1,
-      bacon: 1,
-      meat: 1
-    }
+    ingredients: null,
+    totalprice: 0
   };
   /* for parsing through query params passed thorugh burgerbuider page
 and get the ingredients value */
-  componentDidMount() {
+  componentWillMount() {
     const query = new URLSearchParams(this.props.location.search);
     const ingredients = {};
+    let price = 0;
     for (let params of query.entries()) {
-      ingredients[params[0]] = +params[1];
+      if (params[0] === "price") {
+        price = +params[1];
+      } else ingredients[params[0]] = +params[1];
     }
-    this.setState({ingredients: ingredients})
+    this.setState({ ingredients: ingredients, totalprice: price });
   }
   checkoutCancel = () => {
     this.props.history.goBack();
@@ -33,6 +33,15 @@ and get the ingredients value */
           cancel={this.checkoutCancel}
           continue={this.checkoutContinue}
           ingredients={this.state.ingredients}
+        />
+        <Route
+          path={this.props.match.path + "/contact-form"}
+          render={() => (
+            <ContactData
+              ingredients={this.state.ingredients}
+              price={this.state.totalprice}
+            />
+          )}
         />
       </div>
     );

@@ -36,10 +36,11 @@ and get the ingredients value */
         />
         <Route
           path={this.props.match.path + "/contact-form"}
-          render={() => (
+          render={props => (
             <ContactData
               ingredients={this.state.ingredients}
               price={this.state.totalprice}
+              {...props}
             />
           )}
         />

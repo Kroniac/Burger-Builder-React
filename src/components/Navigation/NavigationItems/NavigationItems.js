@@ -5,8 +5,8 @@ import {NavLink} from "react-router-dom"
 const navagationItems = props => (
   <ul className={classes.NavigationItems}>
     <li className={classes.NavigationItem}>
-      <NavLink to="/" className={classes.active}>Burger Builder</NavLink>
-      <NavLink to="/checkout" >CheckOut</NavLink>
+      <NavLink activeClassName={classes.active} exact to="/">Burger Builder</NavLink>
+      <NavLink activeClassName={classes.active}  to="/orders" >Orders</NavLink>
     </li>
   </ul>
 );

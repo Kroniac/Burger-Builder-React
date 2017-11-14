@@ -92,10 +92,11 @@ class ContactData extends Component {
           ]
         },
         value: "",
-        valid: false,
+        valid: true,
         touched: false
       }
     },
+    formIsValid: false,
     loading: false
   };
   orderHandler = event => {
@@ -136,10 +137,16 @@ class ContactData extends Component {
     );
     updatedFormElement.touched = true;
     updatedOrderForm[formId] = updatedFormElement;
-    this.setState({ orderForm: updatedOrderForm });
+    let formIsValid = true;
+    for (let key in updatedOrderForm) {
+      formIsValid = updatedOrderForm[key].valid && formIsValid;
+    }
+    this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
   };
 
+  /*checking validity of the values according to defined rules in state: validation*/
   checkValidity(value, rules) {
+    if (!rules) return true; // for the state where validation is present
     if (rules.required) if (value.trim() === "") return false;
     if (rules.minLength) if (value.length < rules.minLength) return false;
     if (rules.maxLength) if (value.length > rules.maxLength) return false;
@@ -167,7 +174,10 @@ class ContactData extends Component {
             changed={event => this.onChangeHandler(event, formElement.id)}
           />
         ))}
-        <Button btnType="Success"> Order </Button>
+        <Button btnType="Success" disabled={!this.state.formIsValid}>
+          {" "}
+          Order{" "}
+        </Button>
       </form>
     );
     if (this.state.loading) form = <Spinner />;

@@ -5,29 +5,18 @@ import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/OrderSummary/OrderSummary";
-import axios from "../../axios-order";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import * as burderBuilderAction from "../../store/actions/index";
+import axios from "../../axios-order";
 
 class BurgerBuilder extends Component {
   state = {
-    msg: "Please add some ingredients",
-    purchasing: false,
-    loading: false,
-    error: null
+    msg: "Please add some ingredients"
   };
 
   componentDidMount() {
-    // axios
-    //   .get("https://react-myburger-farid.firebaseio.com/ingredients.json")
-    //   .then(response => {
-    //     this.setState({ ingredients: response.data });
-    //     console.log(response.data);
-    //   })
-    //   .catch(error => {
-    //     this.setState({ error: {} });
-    //   });
+    this.props.onInitIngredients();
   }
   updatePurchaseState = ingredients => {
     const sum = Object.keys(ingredients)
@@ -106,7 +95,7 @@ class BurgerBuilder extends Component {
   render() {
     let orderSummary = null;
 
-    let burger = this.state.error ? (
+    let burger = this.props.error ? (
       <p>Ingredients can't be loaded</p>
     ) : (
       <Spinner />
@@ -156,7 +145,8 @@ class BurgerBuilder extends Component {
 const mapStatetoProps = state => {
   return {
     ings: state.ingredients,
-    price: state.totalprice
+    price: state.totalprice,
+    error: state.error
   };
 };
 
@@ -166,7 +156,8 @@ const mapDispatchtoProps = dispatch => {
       dispatch(burderBuilderAction.addIngredient(ingName)),
 
     onIngredientsRemoved: ingName =>
-      dispatch(burderBuilderAction.removeIngredient(ingName))
+      dispatch(burderBuilderAction.removeIngredient(ingName)),
+    onInitIngredients: () => dispatch(burderBuilderAction.initIngredients())
   };
 };
 

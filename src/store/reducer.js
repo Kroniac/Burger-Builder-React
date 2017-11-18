@@ -41,7 +41,7 @@ const reducer = (state = initialState, action) => {
           },
           totalprice: state.totalprice - INGREDIENT_PRICE[action.ingredientName]
         };
-
+      else return state;
     default:
       console.log("Hello3");
       return state;

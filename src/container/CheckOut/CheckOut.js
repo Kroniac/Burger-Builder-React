@@ -30,8 +30,12 @@ and get the ingredients value */
   render() {
     let summary = <Redirect to="/" />;
     if (this.props.ings) {
+      const purchasedRedirect = this.props.purchased ? (
+        <Redirect to="/" />
+      ) : null;
       summary = (
         <div>
+          {purchasedRedirect}
           <CheckOutSummary
             cancel={this.checkoutCancel}
             continue={this.checkoutContinue}
@@ -57,10 +61,10 @@ and get the ingredients value */
 
 const mapStateToProps = state => {
   return {
-    ings: state.ingredients
+    ings: state.burgerBuilder.ingredients,
+    purchased: state.order.purchased
   };
 };
 
-//no mapDispatchtoProps, cuz nothing is required to dispatch to reducer
 
 export default connect(mapStateToProps)(CheckOut);

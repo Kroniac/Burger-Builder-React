@@ -22,6 +22,23 @@ export const authFail = error => {
   };
 };
 
+export const logout = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT
+  };
+};
+
+/* dispatches logout function after given expiration time
+* here expiration time = 3600(s) by default by firebase
+* expirationTime* 1000 because setTimeout expects time in millisec */
+export const checkAuthTimeOut = expirationTime => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(logout());
+    }, expirationTime * 1000);
+  };
+};
+
 export const auth = (email, password, isSignUp) => {
   return dispatch => {
     dispatch(authStart());
@@ -41,9 +58,10 @@ export const auth = (email, password, isSignUp) => {
       .then(response => {
         console.log(response.data);
         dispatch(authSuccess(response.data.idToken, response.data.localId));
+        dispatch(checkAuthTimeOut(response.data.expiresIn));
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
         dispatch(authFail(err.response.data.error));
       });
   };

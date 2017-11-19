@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import CheckOutSummary from "../../components/Order/CheckOutSummary/CheckOutSummary";
 import ContactData from "./ContactData/ContactData";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 class CheckOut extends Component {
   // state = {
@@ -28,26 +28,30 @@ and get the ingredients value */
     this.props.history.replace("/checkout/contact-form");
   };
   render() {
-    return (
-      <div>
-        <CheckOutSummary
-          cancel={this.checkoutCancel}
-          continue={this.checkoutContinue}
-          ingredients={this.props.ings}
-        />
-        <Route
-          path={this.props.match.path + "/contact-form"}
-          /* render={props => (
-            // <ContactData
-            //   ingredients={this.state.ingredients}
-            //   price={this.state.totalprice}
-            //   {...props}
-            // />
-          )} */
-          component={ContactData}
-        />
-      </div>
-    );
+    let summary = <Redirect to="/" />;
+    if (this.props.ings) {
+      summary = (
+        <div>
+          <CheckOutSummary
+            cancel={this.checkoutCancel}
+            continue={this.checkoutContinue}
+            ingredients={this.props.ings}
+          />
+          <Route
+            path={this.props.match.path + "/contact-form"}
+            /* render={props => (
+           // <ContactData
+           //   ingredients={this.state.ingredients}
+           //   price={this.state.totalprice}
+           //   {...props}
+           // />
+         )} */
+            component={ContactData}
+          />
+        </div>
+      );
+    }
+    return summary;
   }
 }
 

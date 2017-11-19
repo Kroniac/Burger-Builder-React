@@ -5,7 +5,8 @@ import axios from "../../../axios-order";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/Input/Input";
 import { connect } from "react-redux";
-
+import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
+import * as orderBurgerAction from "../../../store/actions/index";
 class ContactData extends Component {
   state = {
     orderForm: {
@@ -97,8 +98,7 @@ class ContactData extends Component {
         touched: false
       }
     },
-    formIsValid: false,
-    loading: false
+    formIsValid: false
   };
   orderHandler = event => {
     event.preventDefault();
@@ -112,17 +112,7 @@ class ContactData extends Component {
       price: this.props.price,
       customer: formElement
     };
-    axios
-      .post("/orders.json", order)
-      .then(response => {
-        this.setState({ loading: false });
-        this.props.history.push("/");
-        // console.log(response);
-      })
-      .catch(error => {
-        this.setState({ loading: false });
-        //console.log(error)
-      });
+    this.props.onOrderBurger(order);
   };
   onChangeHandler = (event, formId) => {
     const updatedOrderForm = {
@@ -181,7 +171,7 @@ class ContactData extends Component {
         </Button>
       </form>
     );
-    if (this.state.loading) form = <Spinner />;
+    if (this.props.loading) form = <Spinner />;
     return (
       <div className={Classes.ContactData}>
         <h4>Enter Your Contact Data </h4>
@@ -194,7 +184,16 @@ class ContactData extends Component {
 const mapStateToProps = state => {
   return {
     ings: state.ingredients,
-    price: state.totalprice
+    price: state.totalprice,
+    loading: state.loading
   };
 };
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+  return {
+    onOrderBurger: orderData =>
+      dispatch(orderBurgerAction.purchaseBurger(orderData))
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withErrorHandler(ContactData, axios)
+);

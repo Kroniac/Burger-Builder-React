@@ -2,20 +2,28 @@ import React from "react";
 import classes from "./NavigationItems.css";
 import { NavLink } from "react-router-dom";
 
-const navagationItems = props => (
-  <ul className={classes.NavigationItems}>
-    <li className={classes.NavigationItem}>
-      <NavLink activeClassName={classes.active} exact to="/">
-        Burger Builder
-      </NavLink>
-      <NavLink activeClassName={classes.active} to="/orders">
-        Orders
-      </NavLink>
-      <NavLink activeClassName={classes.active} to="/auth">
-        Authenticate
-      </NavLink>
-    </li>
-  </ul>
-);
-
+const navagationItems = props => {
+  const authHead = props.isAuthenticated ? (
+    <NavLink activeClassName={classes.active} to="/logout">
+      Logout
+    </NavLink>
+  ) : (
+    <NavLink activeClassName={classes.active} to="/auth">
+      Authenticate
+    </NavLink>
+  );
+  return (
+    <ul className={classes.NavigationItems}>
+      <li className={classes.NavigationItem}>
+        <NavLink activeClassName={classes.active} exact to="/">
+          Burger Builder
+        </NavLink>
+        <NavLink activeClassName={classes.active} to="/orders">
+          Orders
+        </NavLink>
+        {authHead}
+      </li>
+    </ul>
+  );
+};
 export default navagationItems;

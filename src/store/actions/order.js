@@ -62,11 +62,11 @@ export const fetchOrdersStart = () => {
   };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = token => {
   return dispatch => {
     dispatch(fetchOrdersStart());
     axios
-      .get("/orders.json")
+      .get("/orders.json?auth=" + token)
       .then(res => {
         let fetchedData = [];
         for (let key in res.data)

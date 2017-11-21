@@ -12,15 +12,18 @@ const navagationItems = props => {
       Authenticate
     </NavLink>
   );
+  const order = props.isAuthenticated ? (
+    <NavLink activeClassName={classes.active} to="/orders">
+      Orders
+    </NavLink>
+  ) : null;
   return (
     <ul className={classes.NavigationItems}>
       <li className={classes.NavigationItem}>
         <NavLink activeClassName={classes.active} exact to="/">
           Burger Builder
         </NavLink>
-        <NavLink activeClassName={classes.active} to="/orders">
-          Orders
-        </NavLink>
+        {order}
         {authHead}
       </li>
     </ul>

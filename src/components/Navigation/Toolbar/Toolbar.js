@@ -8,6 +8,8 @@ const toolBar = props => (
   <header className={classes.Toolbar}>
     <div className={classes1.DrawerToggle} onClick={props.toggleMenu}>
       <div />
+      <div />
+      <div />
     </div>
     <Logo />
     <nav className={classes.DesktopOnly}>

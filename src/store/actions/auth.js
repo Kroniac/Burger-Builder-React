@@ -50,7 +50,6 @@ export const auth = (email, password, isSignUp) => {
       password: password,
       returnSecureToken: true
     };
-    console.log(email, password);
     let url =
       "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyC2kUpgLAowJye5MA_uJu36oFuee2N5V3A";
     if (!isSignUp)
@@ -59,7 +58,6 @@ export const auth = (email, password, isSignUp) => {
     axios
       .post(url, authData)
       .then(response => {
-        console.log(response.data);
         const expirationDate = new Date(
           new Date().getTime() + response.data.expiresIn * 1000
         );
@@ -70,7 +68,6 @@ export const auth = (email, password, isSignUp) => {
         dispatch(checkAuthTimeOut(response.data.expiresIn));
       })
       .catch(err => {
-        console.log(err.response);
         dispatch(authFail(err.response.data.error));
       });
   };

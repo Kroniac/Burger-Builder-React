@@ -29,7 +29,6 @@ const addIngredient = (state, action) => {
 };
 
 const removeIngredient = (state, action) => {
-  console.log("Hello2");
   if (state.ingredients[action.ingredientName] >= 1) {
     const updatedIng = {
       [action.ingredientName]: state.ingredients[action.ingredientName] - 1

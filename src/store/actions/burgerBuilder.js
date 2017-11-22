@@ -32,7 +32,6 @@ export const initIngredients = () => {
       .get("https://react-myburger-farid.firebaseio.com/ingredients.json")
       .then(response => {
         dispatch(setIngredients(response.data));
-        console.log(response.data);
       })
       .catch(error => {
         dispatch(fetchIngredientsFailed());

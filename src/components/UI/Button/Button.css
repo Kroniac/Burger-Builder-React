@@ -7,12 +7,16 @@
   font: inherit;
   padding: 10px;
   margin: 10px;
+  text-align: center;
+  border: 2px solid #944317;
+  border-top-left-radius: 20px;
   font-weight: bold;
+  padding: 10px;
 }
 
 .Button:first-of-type {
   margin-left: 0;
-  padding-left: 0;
+
 }
 
 .Button:disabled {

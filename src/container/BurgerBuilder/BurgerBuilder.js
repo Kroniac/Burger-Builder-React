@@ -98,6 +98,13 @@ class BurgerBuilder extends Component {
     this.props.history.push("/checkout");
   };
   render() {
+    const disabledInfo = {
+      ...this.props.ings
+    };
+
+    for (let key in disabledInfo) {
+      disabledInfo[key] = disabledInfo[key] <= 0;
+    }
     let orderSummary = null;
 
     let burger = this.props.error ? (
@@ -117,6 +124,7 @@ class BurgerBuilder extends Component {
             price={this.props.price}
             auth={this.props.isAuthenticated}
             order={this.purchaseHandler}
+            disabled={disabledInfo}
           />
         </Aux>
       );

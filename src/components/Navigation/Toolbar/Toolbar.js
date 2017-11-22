@@ -11,7 +11,9 @@ const toolBar = props => (
       <div />
       <div />
     </div>
+    <p className={classes1.Title}>Fire From Hell Burger Shop</p>
     <Logo />
+    <p className={classes.Title}>Fire From Hell Burger Shop</p>
     <nav className={classes.DesktopOnly}>
       <NavigationItems isAuthenticated={props.isAuth} />
     </nav>
